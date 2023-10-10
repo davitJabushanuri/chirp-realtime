@@ -9,10 +9,9 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "lint": "eslint .",
-    "check-types": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.+(ts|js|json)\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "validate": "pnpm check-types && pnpm lint && pnpm format && pnpm build"
+    "validate": "pnpm lint && pnpm format && pnpm build"
   },
   "keywords": [],
   "author": "",
