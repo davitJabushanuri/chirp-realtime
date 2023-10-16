@@ -32,11 +32,7 @@ RUN pnpm install --frozen-lockfile --prod=false
 COPY --link . .
 
 # Build application
-RUN pnpm run build
-
-# Remove development dependencies
-RUN pnpm prune --prod
-
+RUN pnpm build
 
 # Final stage for app image
 FROM base
@@ -45,5 +41,5 @@ FROM base
 COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 3000
-CMD [ "pnpm", "run", "start" ]
+EXPOSE 8080
+CMD [ "pnpm", "start" ]
