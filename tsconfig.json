@@ -1,5 +1,9 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"]
+		},
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"target": "ESNext",
@@ -19,9 +23,6 @@
 		"forceConsistentCasingInFileNames": true,
 		"noImplicitAny": true
 	},
-	"include": ["src/**/*"],
-	"exclude": ["node_modules", "dist"],
-	"ts-node": {
-		"esm": true
-	}
+	"include": ["src"],
+	"exclude": ["node_modules", "dist"]
 }
