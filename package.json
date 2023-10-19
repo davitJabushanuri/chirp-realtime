@@ -15,7 +15,10 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC",
+	"license": "MIT",
+	"dependencies": {
+		"cors": "^2.8.5"
+	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.8.0",
 		"@commitlint/config-conventional": "^17.8.0",
@@ -38,7 +41,5 @@
 		"tsx": "^3.13.0",
 		"typescript": "^5.2.2"
 	},
-	"dependencies": {
-		"cors": "^2.8.5"
-	}
+	"packageManager": "pnpm@8.9.2"
 }
