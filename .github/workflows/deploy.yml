@@ -12,18 +12,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Read app name
-        uses: SebRollen/toml-action@v1.0.2
-        id: app_name
-        with:
-          file: fly.toml
-          field: app
-
       - name: Deploy Staging
         if: ${{ github.ref == 'refs/heads/dev' }}
         uses: superfly/flyctl-actions@v1.4
         with:
-          args: "deploy --remote-only ${{ steps.app_name.outputs.value }}-staging"
+          args: "deploy --config ./fly.staging.toml --remote-only"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
@@ -31,6 +24,6 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: superfly/flyctl-actions@v1.4
         with:
-          args: "deploy --remote-only"
+          args: "deploy --config ./fly.production.toml --remote-only"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

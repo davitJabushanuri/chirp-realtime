@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 app.get("/", (req, res) => {
-	res.send("New year, new me!");
+	res.send("Hello from staging!");
 });
 
 app.get("/api", (req, res) => {
