@@ -13,15 +13,15 @@
 		"moduleDetection": "force",
 		"strict": true,
 		"noUncheckedIndexedAccess": true,
-		"moduleResolution": "NodeNext",
-		"module": "NodeNext",
+		"moduleResolution": "Bundler",
+		"module": "es6",
 		"outDir": "dist",
 		"rootDir": "src",
 		"sourceMap": true,
 		"lib": ["es2022"],
 		"declaration": true,
 		"forceConsistentCasingInFileNames": true,
-		"noImplicitAny": true
+		"noImplicitAny": false
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", "dist"]
