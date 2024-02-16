@@ -1,17 +1,21 @@
 import type {
 	SocketEmitMessagePayload,
 	SocketEmitStatusPayload,
-} from "../src/types/index";
-import { prisma } from "@/lib/prisma";
+} from "../src/types/index.ts";
+import { prisma } from "./lib/prisma";
 import express from "express";
 import { Server } from "socket.io";
-import { logger } from "@/utils/logger";
+import { logger } from "./utils/logger";
 import { z } from "zod";
 import { postImage } from "./utils/upload-image";
 
 const PORT = process.env.PORT || 8080;
 
 const app = express();
+
+app.get("/", (_, res) => {
+	res.send("This is a chat server.");
+});
 
 const expressServer = app.listen(PORT, () => {
 	logger.info(`Server listening on port ${PORT}`);

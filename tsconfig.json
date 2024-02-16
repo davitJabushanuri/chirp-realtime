@@ -4,23 +4,23 @@
 		"paths": {
 			"@/*": ["./src/*"]
 		},
+		/* Base Options: */
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"target": "ESNext",
+		"target": "es2022",
 		"verbatimModuleSyntax": true,
 		"allowJs": true,
 		"resolveJsonModule": true,
 		"moduleDetection": "force",
+		/* Strictness */
 		"strict": true,
 		"noUncheckedIndexedAccess": true,
+		/* If NOT transpiling with TypeScript: */
 		"moduleResolution": "Bundler",
-		"module": "es6",
-		"outDir": "dist",
-		"rootDir": "src",
-		"sourceMap": true,
+		"module": "ESNext",
+		"noEmit": true,
+		/* If your code doesn't run in the DOM: */
 		"lib": ["es2022"],
-		"declaration": true,
-		"forceConsistentCasingInFileNames": true,
 		"noImplicitAny": false
 	},
 	"include": ["src"],

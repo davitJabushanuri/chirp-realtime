@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/supabase";
+import { supabase } from "./supabase";
 import { createId } from "@paralleldrive/cuid2";
 
 export const postImage = async (file: File, bucket: string) => {
