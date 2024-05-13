@@ -9,13 +9,13 @@ import { logger } from "./utils/logger";
 import { z } from "zod";
 import { postImage } from "./utils/upload-image";
 
+import { v1Router } from "@/api/v1/routes";
+
 const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-app.get("/", (_, res) => {
-	res.send("This is a chat server.");
-});
+app.use("/api/v1", v1Router);
 
 const expressServer = app.listen(PORT, () => {
 	logger.info(`Server listening on port ${PORT}`);
@@ -26,6 +26,7 @@ const io = new Server(expressServer, {
 		origin: process.env.CLIENT_URL,
 		methods: ["GET", "POST"],
 	},
+	connectionStateRecovery: {},
 });
 
 io.on("connection", async (socket) => {
@@ -119,6 +120,8 @@ io.on("connection", async (socket) => {
 			} catch (error) {
 				if (error instanceof Error) {
 					logger.error(error.message);
+				} else {
+					throw error;
 				}
 			}
 		}
