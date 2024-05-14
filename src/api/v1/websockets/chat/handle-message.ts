@@ -1,41 +1,15 @@
-import type {
-	SocketEmitMessagePayload,
-	SocketEmitStatusPayload,
-} from "@/types";
 import { logger } from "@/utils/logger";
 import { postImage } from "@/utils/upload-image";
 import type { Socket } from "socket.io";
-import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { messageSchema } from "./schemas/message-schema";
 
 export const handleMessage = async (socket: Socket, message) => {
-	console.log("message", message);
-	const messageSchema = z.object({
-		text: z.string(),
-		image: z
-			.custom((val) => Buffer.isBuffer(val), { message: "Must be a Buffer" })
-			.nullable(),
-		image_width: z.number().nullable(),
-		image_height: z.number().nullable(),
-		conversation_id: z.string(),
-		sender_id: z.string().cuid(),
-		receiver_id: z.string().cuid(),
-	});
-
-	const zod = messageSchema.safeParse(message);
-
-	if (!zod.success) {
-		logger.error(zod.error);
-		return socket.emit("status", {
-			status: "failed",
-			message_id: message.id,
-		} as SocketEmitStatusPayload);
-	}
-
 	try {
+		messageSchema.parse(message);
+
 		if (message.image) {
 			const { url } = await postImage(message.image, "messages");
-
 			message.image = url;
 		}
 
@@ -55,18 +29,19 @@ export const handleMessage = async (socket: Socket, message) => {
 
 		socket.broadcast
 			.to(socket.conversation_id)
-			.emit("message", { message: newMessage } as SocketEmitMessagePayload);
+			.emit("message", { message: newMessage });
+
 		return socket.emit("status", {
 			status: "sent",
 			message_id: message.id,
-		} as SocketEmitStatusPayload);
+		});
 	} catch (error) {
 		if (error instanceof Error) {
 			logger.error(error.message);
 			return socket.emit("status", {
 				status: "failed",
 				message_id: message.id,
-			} as SocketEmitStatusPayload);
+			});
 		} else {
 			throw error;
 		}
