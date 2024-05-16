@@ -1,17 +1,12 @@
 import { logger } from "@/utils/logger";
-import { postImage } from "@/utils/upload-image";
 import type { Socket } from "socket.io";
 import { prisma } from "@/lib/prisma";
 import { messageSchema } from "./schemas/message-schema";
+import type { IMessage } from "./types";
 
-export const handleMessage = async (socket: Socket, message) => {
+export const handleMessage = async (socket: Socket, message: IMessage) => {
 	try {
 		messageSchema.parse(message);
-
-		if (message.image) {
-			const { url } = await postImage(message.image, "messages");
-			message.image = url;
-		}
 
 		const newMessage = await prisma.message.create({
 			data: {
