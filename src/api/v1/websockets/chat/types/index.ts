@@ -1,6 +1,7 @@
 export interface IMessage {
+	id: string;
 	text: string;
-	image: Buffer | null;
+	image: string | null;
 	image_width: number | null;
 	image_height: number | null;
 	conversation_id: string;
