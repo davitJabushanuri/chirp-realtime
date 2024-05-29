@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const messageSchema = z.object({
-	id: z.string().cuid(),
+	id: z.string(),
 	text: z.string().nullable(),
 	image: z.string().nullable(),
 	image_width: z.number().nullable(),
